@@ -1,41 +1,17 @@
-//chris coyier's little dropdown select-->
+//EasyParallax-->
 
-$(document).ready(function() {
-
-	//build dropdown
-	$("<select />").appendTo("nav.primary");
-	
-	// Create default option "Go to..."
-	$("<option />", {
-	   "selected": "selected",
-	   "value"   : "",
-	   "text"    : "Go to..."
-	}).appendTo("nav select");	
-	
-	// Populate dropdowns with the first menu items
-	$("nav.primary ul li a").each(function() {
-	 	var el = $(this);
-	 	$("<option />", {
-	     	"value"   : el.attr("href"),
-	    	"text"    : el.text()
-	 	}).appendTo("nav.primary select");
+function EasyParallax() {
+	scrollPos = $(this).scrollTop();
+	$('#hero').css({
+		'background-position' : '50% ' + (-scrollPos/4)+"px"
 	});
-	
-	//make responsive dropdown menu actually work			
-  	$("nav.primary select").change(function() {
-    	window.location = $(this).find("option:selected").val();
-  	});
-
-    
-    // Make Nav sticky
-    var win = $(window),
-    nav = $('nav.primary'),
-
-    pos = nav.offset().top,
-    sticky = function(){ 
-      if(win.scrollTop() > pos) nav.addClass('sticky')
-      else nav.removeClass('sticky')
-    };
-
-win.scroll(sticky)
-});	
+	$('#herotext').css({
+		'margin-top': (scrollPos/4)+"px",
+		'opacity': 1-(scrollPos/250)
+	});
+}
+$(document).ready(function(){
+	$(window).scroll(function() {
+		EasyParallax();
+	});
+});
