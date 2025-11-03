@@ -1,73 +1,92 @@
+/* Color Scheme toggle light/dark mit Fallback */
+:root {
+  color-scheme: light dark;
+
+  /* Fallback für ältere Browser */
+  --color-text: #333;
+  --color-bg: white;
+  --color-text-inverted: white;
+  --color-border: #fff;
+  --color-overlay-bg: rgba(255,255,255,0.9);
+}
+
+/* Dark Mode für ältere Browser */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: white;
+    --color-bg: #111;
+    --color-text-inverted: #111;
+    --color-border: #333;
+    --color-overlay-bg: rgba(0,0,0,0.8);
+  }
+}
+
+/* Moderne Browser mit light-dark() Unterstützung */
+@supports (color: light-dark(white, black)) {
+  :root {
+    --color-text: light-dark(#333, white);
+    --color-bg: light-dark(white, #111);
+    --color-text-inverted: light-dark(white, #111);
+    --color-border: light-dark(#fff, #333);
+    --color-overlay-bg: light-dark(rgba(255,255,255,0.9), rgba(0,0,0,0.8));
+  }
+}
+
+.dark { color-scheme: dark; }
+.light { color-scheme: light; }
+
 html { height: 100%; }
-body { background: #FFF; font: 400 1.5em/1.5 "Droid Serif", serif; color: #111; text-align: center; height: 100%; }
 
-h1 { font: 700 2.8em/1.2 "Droid Sans", sans-serif; }
-h2 { font: 700 1.5em/1.5 "Droid Sans", sans-serif; margin: 1em 0; }
-
-#hero { background: url(../img/ingo_baby_small.jpg) no-repeat fixed 50% 0;
-  background-size: cover; color: #fff; height: 100%; width: 100%; }
-
-  #herotext { width: 24em; position: fixed; top: 20%; left: 50%; border: .5em solid #fff; margin-left: -12em; padding: 2em 0; }
-
-#content { max-width: 28em; text-align: justify; margin: 0 auto; padding: 2em; }
-
-  #content p { margin: 0 0 2em; }
-
-/* CSS Keyframe animation by
-https://codepen.io/brianhaferkamp/post/animated-image-header
-*/
-.banner {
-  _height: 100vh;
-  padding:300px;
-  overflow: hidden;
-  position: relative;
+body {
+  background: var(--color-bg);
+  font: 400 1.5em/1.5 "Droid Serif", serif;
+  color: var(--color-text);
+  text-align: center;
+  height: 100%;
 }
 
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+h1 {
+  font: 700 2.8em/1.2 "Droid Sans", sans-serif;
+  color: var(--color-text);
 }
 
-.banner-image img {
+h2 {
+  font: 700 1.5em/1.5 "Droid Sans", sans-serif;
+  margin: 1em 0;
+  color: var(--color-text);
+}
+
+.hero {
+  background: url(../img/ingo_baby_small.jpg) no-repeat fixed 50% 0;
+  background-size: contain;
+  color: #fff;
+  height: 100%;
   width: 100%;
-  margin-top: -25%;
-  -webkit-transform-origin: center;
-          transform-origin: center;
 }
 
-.slow-grow {
-  -webkit-animation: grow 150000ms ease;
-          animation: grow 150000ms ease;
+span {
+  font-weight: bolder;
 }
 
-@-webkit-keyframes grow {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+.logo {
+  border: .5em solid var(--color-border);
+  background: var(--color-overlay-bg);
+  color: var(--color-text);
+  box-shadow:0 0 50px 0 var(--color-bg);
 }
 
-@keyframes grow {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+.content {
+  max-width: 28em;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+.content p { margin: 0 0 2em; }
+
+.footer {
+  background: url(../img/IMG_0425_web.jpg) no-repeat fixed 50% 0;
+  background-size: contain;
+  color: #fff;
+  height: 100%;
+  width: 100%;
 }
